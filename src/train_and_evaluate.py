@@ -21,10 +21,10 @@ def evaluate_metrics(actual, pred):
     """
     Evaluate the metrics
     """
-    mse = mean_squared_error(actual, pred)
+    rmse = np.sqrt(mean_squared_error(actual, pred))
     mae = mean_absolute_error(actual, pred)
     r2 = r2_score(actual, pred)
-    return mse, mae, r2
+    return rmse, mae, r2
 
 def train_and_evaulate(config_path):
     """
@@ -61,13 +61,34 @@ def train_and_evaulate(config_path):
     y_pred = model.predict(X_test)
 
     # Evaluate and print the metrics
-    mse, mae, r2 = evaluate_metrics(y_test, y_pred)
-    print(f"MSE: {mse}")
+    rmse, mae, r2 = evaluate_metrics(y_test, y_pred)
+    print(f"ElasticNet model (alpha={alpha}, l1_ratio={l1_ratio}):")
+    print(f"RMSE: {rmse}")
     print(f"MAE: {mae}")
     print(f"R2: {r2}")
 
+    # Generate report files
+    scores_file = config["reports"]["scores"]
+    params_file = config["reports"]["params"]
+
+    with open(scores_file, "w") as f:
+        scores = {
+            "rmse": rmse,
+            "mae": mae,
+            "r2": r2
+        }
+        json.dump(scores, f, indent=4)
+
+    with open(params_file, "w") as f:
+        params = {
+            "alpha": alpha,
+            "l1_ratio": l1_ratio,
+        }
+        json.dump(params, f, indent=4)
+
     # Save the model
-    model_file_path = os.path.join(model_path, "model_1.pickle")
+    os.makedirs(model_path, exist_ok=True)
+    model_file_path = os.path.join(model_path, "model.joblib")
     joblib.dump(model, model_file_path)
 
 
