@@ -62,6 +62,7 @@ executing==2.0.1
 fastjsonschema==2.19.0
 filelock==3.13.1
 flake8==6.0.0
+Flask==2.2.2
 flatten-dict==0.4.2
 flufl.lock==7.1.1
 fqdn==1.5.1
@@ -80,6 +81,7 @@ ipykernel==6.27.1
 ipython==8.18.1
 isoduration==20.11.0
 iterative-telemetry==0.0.8
+itsdangerous==2.0.1
 jedi==0.19.1
 Jinja2==3.1.2
 joblib==1.2.0
@@ -208,6 +210,7 @@ wcwidth==0.2.12
 webcolors==1.13
 webencodings==0.5.1
 websocket-client==1.7.0
+Werkzeug==2.2.3
 wheel==0.41.2
 win-inet-pton==1.1.0
 yarl==1.9.3
