@@ -21,6 +21,7 @@ def log_production_model(config_path):
     lowest = runs["metrics.MAE"].sort_values(ascending=True)[0]
     lowest_run_id = runs[runs["metrics.MAE"] == lowest]["run_id"][0]
     logged_model = ""
+
     client = MlflowClient()
     for mv in client.search_model_versions(f"name = '{model_name}'"):
         mv = dict(mv)
@@ -30,17 +31,18 @@ def log_production_model(config_path):
             logged_model = mv["source"]
             pprint(mv, indent=4)
             status = client.transition_model_version_stage(name=model_name, version=current_version, stage="Production")
-            print(status)
+            print(current_version)
+            print(logged_model)
 
         else:
             current_version = mv["version"]
             client.transition_model_version_stage(name=model_name, version=current_version, stage="Staging")
             print(current_version)
 
-    loaded_model = mlflow.pyfunc.load_model(logged_model)
-    model_path = os.path.join("../", config["webapp_model_dir"])
-
-    joblib.dump(loaded_model, model_path)
+    # loaded_model = mlflow.pyfunc.load_model(logged_model)
+    # model_path = os.path.join("../", config["webapp_model_dir"])
+    #
+    # joblib.dump(loaded_model, model_path)
 
 
 if __name__ == '__main__':
