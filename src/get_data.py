@@ -32,7 +32,6 @@ def get_data(config_path):
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
-    default_config_path = os.path.join("config", "params.yaml")
-    args.add_argument('--config', type=str, default=default_config_path)
+    args.add_argument('--config', type=str, default="../params.yaml")
     parsed_args = args.parse_args()
     data = get_data(config_path=parsed_args.config)
