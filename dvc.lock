@@ -9,12 +9,12 @@ stages:
       size: 91998
     - path: src\get_data.py
       hash: md5
-      md5: db4e4609b47986e6ac2529f811209014
-      size: 832
+      md5: 7bb1cd1064cd343d792605a86e5ddabd
+      size: 835
     - path: src\load_data.py
       hash: md5
-      md5: 05ef8b59dcc09cad2e8c188c71ca5789
-      size: 857
+      md5: 0c6d0854369afc4b1e7b87e776b3198c
+      size: 860
     outs:
     - path: data/raw/winequality.csv
       hash: md5
@@ -29,8 +29,8 @@ stages:
       size: 93598
     - path: src/split_data.py
       hash: md5
-      md5: eacfe5736295a187e7ace7223d245204
-      size: 1326
+      md5: 4eeb3ff895ab7463e6028e1a22f0764f
+      size: 1329
     outs:
     - path: data/processed/test_winequality.csv
       hash: md5
@@ -53,9 +53,16 @@ stages:
       size: 18813
     - path: src/train_and_evaluate.py
       hash: md5
-      md5: 77f9f10fa0952c84c7554aabda400fb0
-      size: 3301
+      md5: b0bff1322e7b11a96e890f0c8ad13262
+      size: 3366
     params:
       params.yaml:
         estimators.ElasticNet.params.alpha: 0.5
         estimators.ElasticNet.params.l1_ratio: 0.5
+  log_production_model:
+    cmd: python src/log_production_model.py --config=params.yaml
+    deps:
+    - path: src/log_production_model.py
+      hash: md5
+      md5: 99db7f31cffa4d942557d83e44aa7a51
+      size: 2107

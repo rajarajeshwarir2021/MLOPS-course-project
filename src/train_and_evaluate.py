@@ -85,7 +85,7 @@ def train_and_evaulate(config_path):
         if tracking_url_type_store != "file":
             mlflow.sklearn.log_model(model, "model", registered_model_name=mlflow_config["registered_model_name"])
         else:
-            mlflow.sklearn.log_model(model, "model")
+            mlflow.sklearn.log_model(model, "model", registered_model_name=mlflow_config["registered_model_name"])
 
 
 if __name__ == '__main__':
